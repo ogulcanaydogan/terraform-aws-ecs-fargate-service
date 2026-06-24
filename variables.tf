@@ -75,7 +75,7 @@ variable "task_role_arn" {
   default     = null
 
   validation {
-    condition     = var.task_role_arn == null || can(regex("^arn:aws[a-zA-Z-]*:iam::", var.task_role_arn))
+    condition     = var.task_role_arn == null ? true : can(regex("^arn:aws[a-zA-Z-]*:iam::", var.task_role_arn))
     error_message = "task_role_arn must be a valid IAM role ARN."
   }
 }
@@ -221,7 +221,7 @@ variable "target_group_arn" {
   default     = null
 
   validation {
-    condition     = var.target_group_arn == null || can(regex("^arn:aws[a-zA-Z-]*:elasticloadbalancing:", var.target_group_arn))
+    condition     = var.target_group_arn == null ? true : can(regex("^arn:aws[a-zA-Z-]*:elasticloadbalancing:", var.target_group_arn))
     error_message = "target_group_arn must be a valid target group ARN."
   }
 }
@@ -331,7 +331,7 @@ variable "autoscaling_memory_target" {
   default     = null
 
   validation {
-    condition     = var.autoscaling_memory_target == null || (var.autoscaling_memory_target >= 1 && var.autoscaling_memory_target <= 100)
+    condition     = var.autoscaling_memory_target == null ? true : (var.autoscaling_memory_target >= 1 && var.autoscaling_memory_target <= 100)
     error_message = "autoscaling_memory_target must be between 1 and 100."
   }
 }
